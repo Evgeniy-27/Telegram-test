@@ -9,11 +9,7 @@ $data = json_decode($data, true);
 
 file_put_contents(__DIR__ . '/message.txt', print_r($data, true));
 
-if (!empty($data['message']['text'])) {
-    $text = $data['message']['text'];
-    echo $text;
-}
-var_dump($data);
+
 //$client1 = new Client([
 //
 //    'base_uri' => 'https://api.telegram.org/bot5142971524:AAECrokQ12_xVT59fwlJRShOMaLyk0nLM4A/',
@@ -55,7 +51,6 @@ if ($text) {
         TelegramNotifier::notify($reply, $chat_id);
     }
 }
-//var_dump($data);
 
 //var_dump($text) . PHP_EOL;
 //var_dump($chat_id) . PHP_EOL;
