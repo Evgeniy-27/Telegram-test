@@ -55,7 +55,7 @@ if ($text) {
         TelegramNotifier::notify($reply, $chat_id);
     }
 }
-
+print_r('Hello');
 
 //var_dump($text) . PHP_EOL;
 //var_dump($chat_id) . PHP_EOL;
