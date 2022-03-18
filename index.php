@@ -1,39 +1,57 @@
 <?php
-include('vendor/autoload.php'); //Подключаем библиотеку
-use Telegram\Bot\Api;
+require 'vendor/autoload.php';
+require './public/TelegramNotifier.php';
 
-$telegram = new Api('5142971524:AAECrokQ12_xVT59fwlJRShOMaLyk0nLM4A'); //Устанавливаем токен, полученный у BotFather
-$result = $telegram -> getWebhookUpdates(); //Передаем в переменную $result полную информацию о сообщении пользователя
+//use GuzzleHttp\Client;
 
+$data = file_get_contents('php://input');
+$data = json_decode($data, true);
+
+file_put_contents(__DIR__ . '/message.txt', print_r($data, true));
+//$client1 = new Client([
+//
+//    'base_uri' => 'https://api.telegram.org/bot5142971524:AAECrokQ12_xVT59fwlJRShOMaLyk0nLM4A/',
+//    'timeout' => 2.0,
+//]);
+//$response = $client1->request('POST', "getUpdates?offset=-1");
+//
+//
+//$body = $response->getBody();
+//$json = json_decode($body, true);
+//$result = $json['result']['0'];
+
+$result = $data['result'];
 $text = $result["message"]["text"]; //Текст сообщения
 $chat_id = $result["message"]["chat"]["id"]; //Уникальный идентификатор пользователя
-$name = $result["message"]["from"]["username"]; //Юзернейм пользователя
-$keyboard = [["Последние статьи"],["Картинка"],["Гифка"]]; //Клавиатура
+$name = $result["message"]["from"]["first_name"]; //Юзернейм пользователя
+$keyboard = [["Последние статьи"], ["Картинка"], ["Гифка"]]; //Клавиатура
+$first_name = $result['message']['from']['first_name'];
+$last_name = $result['message']['from']['last_name'];
 
-if($text){
+if ($text) {
     if ($text == "/start") {
-        $reply = "Добро пожаловать в бота!";
-        $reply_markup = $telegram->replyKeyboardMarkup([ 'keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => false ]);
-        $telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => $reply, 'reply_markup' => $reply_markup ]);
-    }elseif ($text == "/help") {
-        $reply = "Информация с помощью.";
-        $telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => $reply ]);
-    }elseif ($text == "Картинка") {
-        $url = "https://68.media.tumblr.com/6d830b4f2c455f9cb6cd4ebe5011d2b8/tumblr_oj49kevkUz1v4bb1no1_500.jpg";
-        $telegram->sendPhoto([ 'chat_id' => $chat_id, 'photo' => $url, 'caption' => "Описание." ]);
-    }elseif ($text == "Гифка") {
-        $url = "https://68.media.tumblr.com/bd08f2aa85a6eb8b7a9f4b07c0807d71/tumblr_ofrc94sG1e1sjmm5ao1_400.gif";
-        $telegram->sendDocument([ 'chat_id' => $chat_id, 'document' => $url, 'caption' => "Описание." ]);
-    }elseif ($text == "Последние статьи") {
-        $html=simplexml_load_file('http://netology.ru/blog/rss.xml');
-        foreach ($html->channel->item as $item) {
-            $reply .= "\xE2\x9E\xA1 ".$item->title." (<a href='".$item->link."'>читать</a>)\n";
-        }
-        $telegram->sendMessage([ 'chat_id' => $chat_id, 'parse_mode' => 'HTML', 'disable_web_page_preview' => true, 'text' => $reply ]);
-    }else{
-        $reply = "По запросу \"<b>".$text."</b>\" ничего не найдено.";
-        $telegram->sendMessage([ 'chat_id' => $chat_id, 'parse_mode'=> 'HTML', 'text' => $reply ]);
+        $reply = "Добро пожаловать в бота.
+ Информация с помощью:
+ /help";
+        TelegramNotifier::notify($reply, $chat_id);
+    } elseif ($text == "/help") {
+        $reply = "Привет, $first_name $last_name, вот команды, что я понимаю:
+ /help - список команд
+ /about - о нас";
+        TelegramNotifier::notify($reply, $chat_id);
+    } elseif ($text == '/about') {
+        $reply = "Я пример самого простого бота для телеграм, написанного на простом PHP.";
+        TelegramNotifier::notify($reply, $chat_id);
+    } else {
+        $reply = 'Я не распознаю текстовые сообщения, вот команды, что я понимаю:
+ /help - список команд
+ /about - о нас';
+        TelegramNotifier::notify($reply, $chat_id);
     }
-}else{
-    $telegram->sendMessage([ 'chat_id' => $chat_id, 'text' => "Отправьте текстовое сообщение." ]);
 }
+
+
+var_dump($text) . PHP_EOL;
+var_dump($chat_id) . PHP_EOL;
+var_dump($name) . PHP_EOL;
+
