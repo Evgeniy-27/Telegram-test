@@ -8,6 +8,12 @@ $data = file_get_contents('php://input');
 $data = json_decode($data, true);
 
 file_put_contents(__DIR__ . '/message.txt', print_r($data, true));
+
+if (!empty($data['message']['text'])) {
+    $text = $data['message']['text'];
+    echo $text;
+}
+
 //$client1 = new Client([
 //
 //    'base_uri' => 'https://api.telegram.org/bot5142971524:AAECrokQ12_xVT59fwlJRShOMaLyk0nLM4A/',
