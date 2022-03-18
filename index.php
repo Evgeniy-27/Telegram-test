@@ -26,35 +26,35 @@ var_dump($data);
 //$json = json_decode($body, true);
 //$result = $json['result']['0'];
 
-//$result = $data['result'];
-//$text = $result["message"]["text"]; //Текст сообщения
-//$chat_id = $result["message"]["chat"]["id"]; //Уникальный идентификатор пользователя
-//$name = $result["message"]["from"]["first_name"]; //Юзернейм пользователя
-//$keyboard = [["Последние статьи"], ["Картинка"], ["Гифка"]]; //Клавиатура
-//$first_name = $result['message']['from']['first_name'];
-//$last_name = $result['message']['from']['last_name'];
-//
-//if ($text) {
-//    if ($text == "/start") {
-//        $reply = "Добро пожаловать в бота.
-// Информация с помощью:
-// /help";
-//        TelegramNotifier::notify($reply, $chat_id);
-//    } elseif ($text == "/help") {
-//        $reply = "Привет, $first_name $last_name, вот команды, что я понимаю:
-// /help - список команд
-// /about - о нас";
-//        TelegramNotifier::notify($reply, $chat_id);
-//    } elseif ($text == '/about') {
-//        $reply = "Я пример самого простого бота для телеграм, написанного на простом PHP.";
-//        TelegramNotifier::notify($reply, $chat_id);
-//    } else {
-//        $reply = 'Я не распознаю текстовые сообщения, вот команды, что я понимаю:
-// /help - список команд
-// /about - о нас';
-//        TelegramNotifier::notify($reply, $chat_id);
-//    }
-//}
+$result = $data;
+$text = $result["message"]["text"]; //Текст сообщения
+$chat_id = $result["message"]["chat"]["id"]; //Уникальный идентификатор пользователя
+$name = $result["message"]["from"]["first_name"]; //Юзернейм пользователя
+$keyboard = [["Последние статьи"], ["Картинка"], ["Гифка"]]; //Клавиатура
+$first_name = $result['message']['from']['first_name'];
+$last_name = $result['message']['from']['last_name'];
+
+if ($text) {
+    if ($text == "/start") {
+        $reply = "Добро пожаловать в бота.
+ Информация с помощью:
+ /help";
+        TelegramNotifier::notify($reply, $chat_id);
+    } elseif ($text == "/help") {
+        $reply = "Привет, $first_name $last_name, вот команды, что я понимаю:
+ /help - список команд
+ /about - о нас";
+        TelegramNotifier::notify($reply, $chat_id);
+    } elseif ($text == '/about') {
+        $reply = "Я пример самого простого бота для телеграм, написанного на простом PHP.";
+        TelegramNotifier::notify($reply, $chat_id);
+    } else {
+        $reply = 'Я не распознаю текстовые сообщения, вот команды, что я понимаю:
+ /help - список команд
+ /about - о нас';
+        TelegramNotifier::notify($reply, $chat_id);
+    }
+}
 //var_dump($data);
 
 //var_dump($text) . PHP_EOL;
