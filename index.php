@@ -57,7 +57,7 @@ if ($text) {
 }
 
 
-var_dump($text) . PHP_EOL;
-var_dump($chat_id) . PHP_EOL;
-var_dump($name) . PHP_EOL;
+//var_dump($text) . PHP_EOL;
+//var_dump($chat_id) . PHP_EOL;
+//var_dump($name) . PHP_EOL;
 
