@@ -45,16 +45,18 @@ if ($text) {
         $reply = "Я пример самого простого бота для телеграм, написанного на простом PHP.";
         TelegramNotifier::notify($reply, $chat_id);
     }elseif ($text == '/order') {
-        $reply = [
-
+        $reply = array([
+            'text' => 'Вы хотите сделать заказ?',
+            'reply_markup'  => json_encode([
+                'resize_keyboard' => true,
                 'keyboard' => [
                     [
                         ['text' => 'Да'],
                         ['text' => 'Нет'],
                     ]
                 ]
-
-        ];
+            ])
+        ]);
         TelegramNotifier::notify($reply, $chat_id);
     } else {
         $reply = 'Я не распознаю текстовые сообщения, вот команды, что я понимаю:
