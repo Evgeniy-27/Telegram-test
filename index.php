@@ -44,10 +44,9 @@ if ($text) {
     } elseif ($text == '/about') {
         $reply = "Я пример самого простого бота для телеграм, написанного на простом PHP.";
         TelegramNotifier::notify($reply, $chat_id);
-    }elseif ($text == '/order') {
+    } elseif ($text == '/order') {
         $reply = [
-            'text' => 'Вы хотите сделать заказ?',
-            'ReplyKeyboardMarkup'  => [
+            'ReplyKeyboardMarkup' => [
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
