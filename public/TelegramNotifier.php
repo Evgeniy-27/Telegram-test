@@ -14,7 +14,6 @@ class TelegramNotifier
                 RequestOptions::JSON => [
                     'chat_id' => $chat_id,
                     'text' => $text,
-                    "Content-Type" => "application/json"
                 ]
             ]);
         } catch (\Exception $e) {

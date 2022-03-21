@@ -47,7 +47,7 @@ if ($text) {
     }elseif ($text == '/order') {
         $reply = [
             'text' => 'Вы хотите сделать заказ?',
-            'reply_markup'  => [
+            'ReplyKeyboardMarkup'  => [
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
