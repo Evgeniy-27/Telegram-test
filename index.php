@@ -36,7 +36,7 @@ if ($text) {
  /help";
         TelegramNotifier::notify($reply, $chat_id);
     } elseif ($text == "/help") {
-        $reply = "Привет, $first_name $last_name, вот команды, что я понимаю:
+        $reply = "Привет, $first_name, вот команды, что я понимаю:
  /help - список команд
  /about - о нас
  /order";
